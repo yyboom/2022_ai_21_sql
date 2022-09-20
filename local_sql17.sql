@@ -1,0 +1,8 @@
+USE mysql;
+SELECT host,user FROM user;
+
+SHOW DATABASES;
+
+CREATE USER 'suser01'@'%' IDENTIFIED BY '111111';
+GRANT ALL PRIVILEGES on shopdb.* TO 'suser01'@'%';
+FLUSH PRIVILEGES;

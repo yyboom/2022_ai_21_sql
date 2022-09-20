@@ -1,0 +1,73 @@
+-- DML
+-- CRUD(INSERT, SELECT, UPDATE, DELETE)
+
+-- DDL
+DROP DATABASE IF EXISTS shopdb;
+CREATE DATABASE shopdb;
+
+-- DATA TYPE
+-- 숫자(정수, 실수)
+-- 문자(char, varchar)
+-- DATA(년월일,년월일시분초) 
+
+USE shopdb;
+
+DROP TABLE IF EXISTS cust;
+
+CREATE TABLE cust(
+	id VARCHAR(10),
+    pwd VARCHAR(10) NOT NULL,
+    name VARCHAR(20) NOT NULL
+);
+ALTER TABLE cust ADD CONSTRAINT PRIMARY KEY(id);
+
+INSERT INTO cust VALUES ('id01','pwd01','홍말숙');
+INSERT INTO cust VALUES ('id02','pwd02','이말숙');
+INSERT INTO cust VALUES ('id03','pwd03','정말숙');
+
+SELECT * FROM cust;
+
+-- item table
+DROP TABLE IF EXISTS item;
+
+CREATE TABLE item(
+   id INT,
+   name VARCHAR(20) NOT NULL,
+   price INT NOT NULL,
+   imgname VARCHAR(30),
+   rdate DATETIME 
+);
+ALTER TABLE item ADD CONSTRAINT PRIMARY KEY (id);
+ALTER TABLE item MODIFY id INT AUTO_INCREMENT;
+ALTER TABLE item AUTO_INCREMENT = 100;
+ALTER TABLE item ADD CONSTRAINT CHECK (price > 0);
+
+DESC item;
+
+INSERT INTO item VALUES (NULL,'청바지',10000,'a.jpg',SYSDATE());
+INSERT INTO item VALUES (NULL,'반바지',20000,'b.jpg',SYSDATE());
+INSERT INTO item VALUES (NULL,'반팔',30000,'c.jpg',SYSDATE());
+INSERT INTO item VALUES (NULL,'긴팔',40000,'d.jpg',SYSDATE());
+
+SELECT * FROM item;
+
+-- cart table
+DROP TABLE IF EXISTS cart;
+
+CREATE TABLE cart(
+	id INT,
+    user_id VARCHAR(10),
+    item_id INT,
+    cnt INT,
+    rdate DATE
+);
+ALTER TABLE cart ADD CONSTRAINT PRIMARY KEY (id);
+ALTER TABLE cart MODIFY id INT AUTO_INCREMENT;
+ALTER TABLE cart AUTO_INCREMENT=100;
+ALTER TABLE cart ADD FOREIGN KEY (user_id) REFERENCES cust (id);
+ALTER TABLE cart ADD FOREIGN KEY (item_id) REFERENCES item (id);
+
+INSERT INTO cart VALUES (NULL,'id01',100,2,NOW());
+
+SELECT * FROM cart;
+

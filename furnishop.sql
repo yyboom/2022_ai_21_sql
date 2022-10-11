@@ -118,33 +118,6 @@ INSERT INTO orderpage VALUES(NULL,'id09','2022-05-19','네이버페이',2,'Y','�
 DESC orderpage;
 SELECT * FROM orderpage;
 
--- ship table ------------------------------------------------------------------
-DROP TABLE IF EXISTS ship;
-
-CREATE TABLE ship(
-	shipid INT,
-    orderno INT,
-    shipstatus VARCHAR(20)
-);
-ALTER TABLE ship ADD CONSTRAINT PRIMARY KEY(shipid);
-ALTER TABLE ship MODIFY shipid INT AUTO_INCREMENT;
-ALTER TABLE ship AUTO_INCREMENT = 200;
--- ALTER TABLE ship ADD CONSTRAINT FOREIGN KEY(orderno) REFERENCES orderpage(orderno);
-
-INSERT INTO ship VALUES (NULL,300,'출고요청');
-INSERT INTO ship VALUES (NULL,301,'간선하차');
-INSERT INTO ship VALUES (NULL,302,'배송완료');
-INSERT INTO ship VALUES (NULL,303,'집화처리');
-INSERT INTO ship VALUES (NULL,304,'출고완료');
-INSERT INTO ship VALUES (NULL,305,'간선상차');
-INSERT INTO ship VALUES (NULL,306,'간선하차');
-INSERT INTO ship VALUES (NULL,307,'배송완료');
-INSERT INTO ship VALUES (NULL,308,'배송출고');
-INSERT INTO ship VALUES (NULL,309,'간선상차');
-
-DESC ship;
-SELECT * FROM ship;
-
 -- detail order-------------------------------------------------------------------
 CREATE TABLE detailorder (
 	detailno INT NOT NULL,
@@ -171,6 +144,33 @@ INSERT INTO detailorder VALUES(NULL,309,104);
 
 DESC detailorder;
 SELECT * FROM detailorder;
+
+-- ship table ------------------------------------------------------------------
+DROP TABLE IF EXISTS ship;
+
+CREATE TABLE ship(
+	shipid INT,
+    detailno INT,
+    shipstatus VARCHAR(20)
+);
+ALTER TABLE ship ADD CONSTRAINT PRIMARY KEY(shipid);
+ALTER TABLE ship MODIFY shipid INT AUTO_INCREMENT;
+ALTER TABLE ship AUTO_INCREMENT = 200;
+-- ALTER TABLE ship ADD CONSTRAINT FOREIGN KEY(orderno) REFERENCES orderpage(orderno);
+
+INSERT INTO ship VALUES (NULL,400,'출고요청');
+INSERT INTO ship VALUES (NULL,401,'간선하차');
+INSERT INTO ship VALUES (NULL,402,'배송완료');
+INSERT INTO ship VALUES (NULL,403,'집화처리');
+INSERT INTO ship VALUES (NULL,404,'출고완료');
+INSERT INTO ship VALUES (NULL,405,'간선상차');
+INSERT INTO ship VALUES (NULL,406,'간선하차');
+INSERT INTO ship VALUES (NULL,407,'배송완료');
+INSERT INTO ship VALUES (NULL,408,'배송출고');
+INSERT INTO ship VALUES (NULL,409,'간선상차');
+
+DESC ship;
+SELECT * FROM ship;
 
 -- cart table-----------------------------------------------------------------------
 DROP TABLE IF EXISTS cart;
@@ -254,3 +254,10 @@ INSERT INTO review VALUES(NULL,'id09',108,5,'가격대비 마감도 준수합니
 
 DESC review;
 SELECT*FROM review;
+
+SELECT c.custid AS cust_id, d.orderno AS order_no, o.orderdate AS order_date, i.itemname AS item_name, o.itemcnt AS item_cnt, i.itemprice*o.itemcnt AS total_cnt, i.itemimg AS item_img, sh.shipstatus FROM detailorder d
+INNER JOIN item i ON i.itemno=d.itemno
+INNER JOIN ship sh ON d.detailno=sh.detailno
+INNER JOIN orderpage o ON o.orderno=d.orderno
+INNER JOIN cust c ON c.custid=o.custid
+WHERE c.custid="id09";

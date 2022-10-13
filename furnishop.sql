@@ -57,28 +57,27 @@ CREATE TABLE item(
 	itemprice INT NOT NULL,
 	itemcolor VARCHAR(20) NOT NULL,
 	itemsize VARCHAR(30) NOT NULL,
-	itemimg VARCHAR(20),
-	itemimg1 VARCHAR(20),
+	itemimg VARCHAR(30),
+	itemimg1 VARCHAR(30),
 	itemstock INT NOT NULL,
 	itemsell INT NOT NULL
 );
 ALTER TABLE item ADD CONSTRAINT PRIMARY KEY(itemno);
 ALTER TABLE item MODIFY itemno INT AUTO_INCREMENT;
 ALTER TABLE item AUTO_INCREMENT = 100;
--- ALTER TABLE item ADD FOREIGN KEY(cateno) REFERENCES cate(cateno);
 
-INSERT INTO item VALUES(NULL, 01, '침대', 1096000, '베이지', 'Q', 'bed', 'bed1', 5, 12);
-INSERT INTO item VALUES(NULL, 01, '옷장', 689000, '그레이', '1500*750*737', 'closet', 'closet1', 5, 12);
-INSERT INTO item VALUES(NULL, 01, '화장대', 529000, '베이지', '1500*750*737', 'dresser', 'dresser1', 5, 12);
-INSERT INTO item VALUES(NULL, 01, '책상', 550000, '브라운', '1500*750*737', 'desk', 'desk1', 5, 12);
+INSERT INTO item VALUES(NULL, 01, '침대', 1096000, '베이지', 'Q', 'bed.jpg', 'bed1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 01, '옷장', 689000, '그레이', '1500*750*737', 'closet.jpg', 'closet1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 01, '화장대', 529000, '베이지', '1500*750*737', 'dresser.jpg', 'dresser1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 01, '책상', 550000, '브라운', '1500*750*737', 'desk.jpg', 'desk1.jpg', 5, 12);
 
-INSERT INTO item VALUES(NULL, 02, '소파', 1290000, '그레이', '1500*750*737', 'sofa', 'sofa1', 5, 12);
-INSERT INTO item VALUES(NULL, 02, '거실장', 590000, '베이지', '1500*750*737', 'living-room-dresser', 'living-room-dresser1', 5, 12);
-INSERT INTO item VALUES(NULL, 02, '테이블', 199000, '베이지', '1500*750*737', 'side-table', 'side-table1', 5, 12);
+INSERT INTO item VALUES(NULL, 02, '소파', 1290000, '그레이', '1500*750*737', 'sofa.jpg', 'sofa1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 02, '거실장', 590000, '베이지', '1500*750*737', 'living-room-dresser.jpg', 'living-room-dresser1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 02, '테이블', 199000, '베이지', '1500*750*737', 'side-table.jpg', 'side-table1.jpg', 5, 12);
 
-INSERT INTO item VALUES(NULL, 03, '식탁', 699000, '베이지', '1500*750*737', 'table', 'table1', 5, 12);
-INSERT INTO item VALUES(NULL, 03, '의자', 209000, '그레이', '1500*750*737', 'chair', 'chair1', 5, 12);
-INSERT INTO item VALUES(NULL, 03, '수납장', 859000, '브라운', '1500*750*737', 'storage-closet', 'storage-closet1', 5, 12);
+INSERT INTO item VALUES(NULL, 03, '식탁', 699000, '베이지', '1500*750*737', 'table.jpg', 'table1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 03, '의자', 209000, '그레이', '1500*750*737', 'chair.jpg', 'chair1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 03, '수납장', 859000, '브라운', '1500*750*737', 'storage-closet.jpg', 'storage-closet1.jpg', 5, 12);
 
 DESC item;
 SELECT*FROM item;
@@ -100,7 +99,6 @@ CREATE TABLE orderpage (
 ALTER TABLE orderpage ADD PRIMARY KEY (orderno);
 ALTER TABLE orderpage MODIFY orderno INT AUTO_INCREMENT;
 ALTER TABLE orderpage AUTO_INCREMENT = 300;
--- ALTER TABLE orderpage ADD FOREIGN KEY (custid) REFERENCES cust(custid);
 ALTER TABLE orderpage ADD CONSTRAINT CHECK (itemcnt>0);
 
 INSERT INTO orderpage VALUES(NULL,'id01','2022-09-07','네이버페이',2,'Y','우리집','서울특별시 마포구','홍말숙','010-1234-1234');
@@ -113,7 +111,6 @@ INSERT INTO orderpage VALUES(NULL,'id09','2022-05-19','네이버페이',2,'Y','�
 INSERT INTO orderpage VALUES(NULL,'id08','2022-06-30','카카오페이',3,'N','집','강원도 평창시','유말숙','010-1132-6505');
 INSERT INTO orderpage VALUES(NULL,'id06','2022-10-07','신용카드',3,'Y','집','경기도 수원시','조말숙','010-8278-9594');
 INSERT INTO orderpage VALUES(NULL,'id09','2022-05-19','네이버페이',2,'Y','우리집','서울특별시 강남구','신말숙','010-3727-2749');
-
 
 DESC orderpage;
 SELECT * FROM orderpage;
@@ -128,8 +125,6 @@ CREATE TABLE detailorder (
 ALTER TABLE detailorder ADD CONSTRAINT PRIMARY KEY(detailno);
 ALTER TABLE detailorder MODIFY detailno INT AUTO_INCREMENT;
 ALTER TABLE detailorder AUTO_INCREMENT = 400;
--- ALTER TABLE detailorder ADD CONSTRAINT FOREIGN KEY(orderno) REFERENCES orderpage(orderno);
--- ALTER TABLE detailorder ADD CONSTRAINT FOREIGN KEY(itemno) REFERENCES item(itemno);
 
 INSERT INTO detailorder VALUES(NULL,300,100);
 INSERT INTO detailorder VALUES(NULL,301,101);
@@ -156,7 +151,6 @@ CREATE TABLE ship(
 ALTER TABLE ship ADD CONSTRAINT PRIMARY KEY(shipid);
 ALTER TABLE ship MODIFY shipid INT AUTO_INCREMENT;
 ALTER TABLE ship AUTO_INCREMENT = 200;
--- ALTER TABLE ship ADD CONSTRAINT FOREIGN KEY(orderno) REFERENCES orderpage(orderno);
 
 INSERT INTO ship VALUES (NULL,400,'출고요청');
 INSERT INTO ship VALUES (NULL,401,'간선하차');
@@ -184,8 +178,6 @@ CREATE TABLE cart(
 ALTER TABLE cart ADD CONSTRAINT PRIMARY KEY(cartno);
 ALTER TABLE cart MODIFY cartno INT AUTO_INCREMENT;
 ALTER TABLE cart AUTO_INCREMENT = 500;
--- ALTER TABLE cart ADD CONSTRAINT FOREIGN KEY(custid) REFERENCES cust(custid);
--- ALTER TABLE cart ADD CONSTRAINT FOREIGN KEY(itemno) REFERENCES item(itemno);
 
 INSERT INTO cart VALUES(NULL, 'id03', 103, 3);
 INSERT INTO cart VALUES(NULL, 'id05', 102, 1);
@@ -208,8 +200,6 @@ CREATE TABLE wishlist(
 ALTER TABLE wishlist ADD CONSTRAINT PRIMARY KEY(wishno);
 ALTER TABLE wishlist MODIFY wishno INT AUTO_INCREMENT;
 ALTER TABLE wishlist AUTO_INCREMENT = 600;
--- ALTER TABLE wishlist ADD FOREIGN KEY(custid) REFERENCES cust(custid);
--- ALTER TABLE wishlist ADD FOREIGN KEY(itemno) REFERENCES item(itemno);
 
 INSERT INTO wishlist VALUES(NULL, 'id01', 100);
 INSERT INTO wishlist VALUES(NULL, 'id01', 105);
@@ -240,8 +230,6 @@ CREATE TABLE review(
 ALTER TABLE review ADD CONSTRAINT PRIMARY KEY(reviewno);
 ALTER TABLE review MODIFY reviewno INT AUTO_INCREMENT;
 ALTER TABLE review AUTO_INCREMENT = 700;
--- ALTER TABLE review ADD CONSTRAINT FOREIGN KEY(custid) REFERENCES cust(custid);
--- ALTER TABLE review ADD CONSTRAINT FOREIGN KEY(itemno) REFERENCES item(itemno);
 
 INSERT INTO review VALUES(NULL,'id06',108,4,'그리 썩 좋아보이지는 않았지만 가격대비는 국내생산에 조립도 쉽고 튼튼하고 좋은것 같아요!!','2022-09-20','reviewchair.jpg');
 INSERT INTO review VALUES(NULL,'id03',105,5,'부모님댁에 보내드렸는데 배송도 1주일내로 빨리받았고 고급스럽고 예쁘다고 부모님이 많이 좋아하시네요. 좋은제품 저렴히 구입할수 있어서 감사합니다.','2022-09-15','reviewliving.jpg');
@@ -255,9 +243,14 @@ INSERT INTO review VALUES(NULL,'id09',108,5,'가격대비 마감도 준수합니
 DESC review;
 SELECT*FROM review;
 
-SELECT c.custid AS cust_id, d.orderno AS order_no, o.orderdate AS order_date, i.itemname AS item_name, o.itemcnt AS item_cnt, i.itemprice*o.itemcnt AS total_cnt, i.itemimg AS item_img, sh.shipstatus FROM detailorder d
-INNER JOIN item i ON i.itemno=d.itemno
-INNER JOIN ship sh ON d.detailno=sh.detailno
-INNER JOIN orderpage o ON o.orderno=d.orderno
-INNER JOIN cust c ON c.custid=o.custid
-WHERE c.custid="id09";
+-- ALTER TABLE item ADD FOREIGN KEY(cateno) REFERENCES cate(cateno);
+-- ALTER TABLE orderpage ADD FOREIGN KEY (custid) REFERENCES cust(custid);
+-- ALTER TABLE detailorder ADD CONSTRAINT FOREIGN KEY(orderno) REFERENCES orderpage(orderno);
+-- ALTER TABLE detailorder ADD CONSTRAINT FOREIGN KEY(itemno) REFERENCES item(itemno);
+-- ALTER TABLE ship ADD CONSTRAINT FOREIGN KEY(detailno) REFERENCES detailorder(detailno);
+-- ALTER TABLE cart ADD CONSTRAINT FOREIGN KEY(custid) REFERENCES cust(custid);
+-- ALTER TABLE cart ADD CONSTRAINT FOREIGN KEY(itemno) REFERENCES item(itemno);
+-- ALTER TABLE wishlist ADD FOREIGN KEY(custid) REFERENCES cust(custid);
+-- ALTER TABLE wishlist ADD FOREIGN KEY(itemno) REFERENCES item(itemno);
+-- ALTER TABLE review ADD CONSTRAINT FOREIGN KEY(custid) REFERENCES cust(custid);
+-- ALTER TABLE review ADD CONSTRAINT FOREIGN KEY(itemno) REFERENCES item(itemno);

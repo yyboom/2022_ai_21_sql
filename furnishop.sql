@@ -66,18 +66,18 @@ ALTER TABLE item ADD CONSTRAINT PRIMARY KEY(itemno);
 ALTER TABLE item MODIFY itemno INT AUTO_INCREMENT;
 ALTER TABLE item AUTO_INCREMENT = 100;
 
-INSERT INTO item VALUES(NULL, 01, '침대', 1096000, '베이지', 'Q', 'bed.jpg', 'bed1.jpg', 5, 12);
-INSERT INTO item VALUES(NULL, 01, '옷장', 689000, '그레이', '1500*750*737', 'closet.jpg', 'closet1.jpg', 5, 12);
-INSERT INTO item VALUES(NULL, 01, '화장대', 529000, '베이지', '1500*750*737', 'dresser.jpg', 'dresser1.jpg', 5, 12);
-INSERT INTO item VALUES(NULL, 01, '책상', 550000, '브라운', '1500*750*737', 'desk.jpg', 'desk1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 1, 'Bed', 1096000, '베이지', 'Q', 'bed.jpg', 'bed1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 1, 'Closet', 689000, '그레이', '1500*750*737', 'closet.jpg', 'closet1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 1, 'Dresser', 529000, '베이지', '1500*750*737', 'dresser.jpg', 'dresser1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 1, 'Desk', 550000, '브라운', '1500*750*737', 'desk.jpg', 'desk1.jpg', 5, 12);
 
-INSERT INTO item VALUES(NULL, 02, '소파', 1290000, '그레이', '1500*750*737', 'sofa.jpg', 'sofa1.jpg', 5, 12);
-INSERT INTO item VALUES(NULL, 02, '거실장', 590000, '베이지', '1500*750*737', 'living-room-dresser.jpg', 'living-room-dresser1.jpg', 5, 12);
-INSERT INTO item VALUES(NULL, 02, '테이블', 199000, '베이지', '1500*750*737', 'side-table.jpg', 'side-table1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 2, 'Sofa', 1290000, '그레이', '1500*750*737', 'sofa.jpg', 'sofa1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 2, 'Living room dresser', 590000, '베이지', '1500*750*737', 'living-room-dresser.jpg', 'living-room-dresser1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 2, 'Side table', 199000, '베이지', '1500*750*737', 'side-table.jpg', 'side-table1.jpg', 5, 12);
 
-INSERT INTO item VALUES(NULL, 03, '식탁', 699000, '베이지', '1500*750*737', 'table.jpg', 'table1.jpg', 5, 12);
-INSERT INTO item VALUES(NULL, 03, '의자', 209000, '그레이', '1500*750*737', 'chair.jpg', 'chair1.jpg', 5, 12);
-INSERT INTO item VALUES(NULL, 03, '수납장', 859000, '브라운', '1500*750*737', 'storage-closet.jpg', 'storage-closet1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 3, 'Table', 699000, '베이지', '1500*750*737', 'table.jpg', 'table1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 3, 'Chair', 209000, '그레이', '1500*750*737', 'chair.jpg', 'chair1.jpg', 5, 12);
+INSERT INTO item VALUES(NULL, 3, 'Storage closet', 859000, '브라운', '1500*750*737', 'storage-closet.jpg', 'storage-closet1.jpg', 5, 12);
 
 DESC item;
 SELECT*FROM item;
@@ -115,6 +115,7 @@ INSERT INTO orderpage VALUES(NULL,'id09','2022-05-19','네이버페이',2,'Y','�
 DESC orderpage;
 SELECT * FROM orderpage;
 
+SELECT LAST_INSERT_ID();
 -- detail order-------------------------------------------------------------------
 CREATE TABLE detailorder (
 	detailno INT NOT NULL,
@@ -242,6 +243,10 @@ INSERT INTO review VALUES(NULL,'id09',108,5,'가격대비 마감도 준수합니
 
 DESC review;
 SELECT*FROM review;
+
+		SELECT i.itemname,i.itemimg, i.itemno FROM item AS i
+		INNER JOIN cate AS c ON c.cateno = i.cateno
+		WHERE c.cateno=1;
 
 -- ALTER TABLE item ADD FOREIGN KEY(cateno) REFERENCES cate(cateno);
 -- ALTER TABLE orderpage ADD FOREIGN KEY (custid) REFERENCES cust(custid);
